@@ -1,23 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 // Custom imports
 using System;
 using UnityEngine.InputSystem;
-
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Movement : MonoBehaviour {
 
     [SerializeField] private float runspeed;
     private Rigidbody2D rigidBody;
-
     private Vector2 currentInput;
-
     private Vector2 velocity;
 
     // Speed modifiers (Constants)
-    private int MAX_SPEED = 8;
+    private int MAX_SPEED = 12;
     private double SPEED_FACTOR = 0.08;
 
     // Method called when class initialized
