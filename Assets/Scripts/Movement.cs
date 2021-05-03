@@ -30,12 +30,16 @@ public class Movement : MonoBehaviour {
         // Get the current vector magnitude
         double magnitude = Math.Sqrt((velocity.x * velocity.x) + (velocity.y * velocity.y));
 
-        // Show the ship exhaust (if input.y == 1 (up/forwards) OR the rounded absolute value of input.x == 0.7 (combo of up/forward and left/right))
-        if (input.y == 1 || Math.Abs(Math.Round(input.x, 1)) == 0.7) {
+        // // DEBUG
+        // if (input.x != 0 && input.y != 0) Debug.Log(Math.Round(input.x, 1) + ", " + Math.Round(input.y, 1));
+
+        // Check if the input is up/forwards (or forwards and turning)
+        bool isForward = (Math.Abs(Math.Round(input.x, 1)) == 0.7 && Math.Round(input.y, 1) == 0.7) || input.y == 1;
+
+        // Change the player's velocity vectors (only if vector magnitude < MAX_SPEED AND input.y is up/forwards)
+        if(isForward) {
+            // Show the ship exhaust 
             this.gameObject.transform.GetChild(1).GetComponent<Renderer>().enabled = true;
-        }
-        // Change the player's velocity vectors (only if vector magnitude < MAX_SPEED AND input != -1 (down/backwards))
-        if(input.y != -1) {
             // Update the movement vector
             if (magnitude < MAX_SPEED){
                 velocity.x -= (float)(input.y * Math.Sin(rigidBody.rotation/57.2958) * SPEED_FACTOR) * runspeed; // SOH(CAH)TOA (Convert to radians)
@@ -43,9 +47,8 @@ public class Movement : MonoBehaviour {
             }
             // Set the rigidbody's new velocity
             rigidBody.velocity = velocity;
-        }
-        // Hide the ship exhaust
-        if(input.y != 1 && Math.Abs(Math.Round(input.x, 1)) != 0.7){
+        } else {
+            // Hide the ship exhaust
             this.gameObject.transform.GetChild(1).GetComponent<Renderer>().enabled = false;
         }
     }
