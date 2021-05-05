@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MenuButtons : MonoBehaviour {
+public class MainMenu : MonoBehaviour {
     
     // MAIN MENU METHODS
 
@@ -18,15 +18,4 @@ public class MenuButtons : MonoBehaviour {
         Application.Quit();
     }
     
-    // PAUSE MENU METHODS
-
-    // Method to resume the GameScene
-    public void Resume() {
-        Debug.Log("Resume!");
-    }
-    // Method to exit the game back to the menu
-    public void ExitGame() {
-        SceneManager.LoadScene(0);
-    }
-
 }

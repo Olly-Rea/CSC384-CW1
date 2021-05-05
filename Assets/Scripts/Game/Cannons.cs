@@ -17,19 +17,22 @@ public class Cannons : MonoBehaviour {
         toFire = false,
         canFire = true;
 
-    // Update is called once per frame
+    // Instantiate the object pooler at Start()
+    ObjectPooler objectPooler;
+    private void Start() {
+        objectPooler = ObjectPooler.Instance;
+    }
+
+    // Enumerator to slow the fire rate of the cannons
     private IEnumerator FireCannons() {
         // Disable further firing
         canFire = false;
-        // Fire on the currently active side
-        if (side) {
-            Instantiate(laserPrefab, leftCannon.position, leftCannon.rotation);
+        // Fire on the NEXT active side
+        if (side = !side) {
+            objectPooler.spawnFromPool("laser", leftCannon.position, leftCannon.rotation);
         } else {
-            Instantiate(laserPrefab, rightCannon.position, rightCannon.rotation);
+            objectPooler.spawnFromPool("laser", rightCannon.position, rightCannon.rotation);
         }
-        // Flip the 'side'
-        side = !side;
-
         // Wait for the fireRate limiter
         yield return new WaitForSeconds(fireRate);
         // Enable firing
@@ -37,14 +40,19 @@ public class Cannons : MonoBehaviour {
     }
 
     private void Update() {
-        // Only fire if toFire online
+        // Only fire if toFire and canFire are true
         if (toFire && canFire) StartCoroutine(FireCannons());
     }
 
     // Method to read in the boolean input from Unity's 'InputAction' fire command
     public void onFire(InputAction.CallbackContext context) {
-        // Get a boolean value from the input context
-        toFire = (context.ReadValue<float>() != 0) ? true : false;
+        // Allow firing if game is not paused
+        if (!PauseMenu.GamePaused) {
+            // Get a boolean value from the input context
+            toFire = (context.ReadValueAsButton()) ? true : false;
+        } else {
+            toFire = false;
+        }
     }
 
 }

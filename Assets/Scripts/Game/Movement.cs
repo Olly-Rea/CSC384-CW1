@@ -6,14 +6,14 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Movement : MonoBehaviour {
 
-    [SerializeField] private float runspeed;
+    [SerializeField] int maxSpeed = 20;
+    [SerializeField] double turnSpeed = 0.7;
+
     private Rigidbody2D rigidBody;
     private Vector2 currentInput;
     private Vector2 velocity;
-
-    // Speed modifiers (Constants)
-    private int MAX_SPEED = 24;
-    private double SPEED_FACTOR = 0.08;
+    // Speed modifier (Constant)
+    private const double SPEED_FACTOR = 0.08;
 
     // Method called when class initialized
     private void Awake() {
@@ -25,25 +25,24 @@ public class Movement : MonoBehaviour {
         // Get current rigidbody velocity
         velocity = rigidBody.velocity;
         
+        // Stop 'ragdoll' rotation if the player calls on the rotation controls
+        if (Math.Abs(input.x) == 1 || Math.Abs(Math.Round(input.x, 1)) == 0.7) {
+            rigidBody.angularVelocity = 0;
+        }
+
         // Set the rigidbody's new rotation
-        rigidBody.rotation -= (float)(input.x * 0.7 * runspeed);
+        rigidBody.rotation -= (float)(input.x * turnSpeed);
         // Get the current vector magnitude
         double magnitude = Math.Sqrt((velocity.x * velocity.x) + (velocity.y * velocity.y));
 
-        // // DEBUG
-        // if (input.x != 0 && input.y != 0) Debug.Log(Math.Round(input.x, 1) + ", " + Math.Round(input.y, 1));
-
-        // Check if the input is up/forwards (or forwards and turning)
-        bool isForward = (Math.Abs(Math.Round(input.x, 1)) == 0.7 && Math.Round(input.y, 1) == 0.7) || input.y == 1;
-
-        // Change the player's velocity vectors (only if vector magnitude < MAX_SPEED AND input.y is up/forwards)
-        if(isForward) {
+        // Check if the input is up/forwards (or up/forwards and turning)
+        if((Math.Abs(Math.Round(input.x, 1)) == 0.7 && Math.Round(input.y, 1) == 0.7) || input.y == 1) {
             // Show the ship exhaust 
             this.gameObject.transform.GetChild(1).GetComponent<Renderer>().enabled = true;
-            // Update the movement vector
-            if (magnitude < MAX_SPEED){
-                velocity.x -= (float)(input.y * Math.Sin(rigidBody.rotation/57.2958) * SPEED_FACTOR) * runspeed; // SOH(CAH)TOA (Convert to radians)
-                velocity.y += (float)(input.y * Math.Cos(rigidBody.rotation/57.2958) * SPEED_FACTOR) * runspeed; // (SOH)CAHTOA (Convert to radians)
+            // Change the player's velocity vectors (only if vector magnitude < maxSpeed)
+            if (magnitude < maxSpeed){
+                velocity.x -= (float)(input.y * Math.Sin(rigidBody.rotation/57.2958) * SPEED_FACTOR); // SOH(CAH)TOA (Convert to radians)
+                velocity.y += (float)(input.y * Math.Cos(rigidBody.rotation/57.2958) * SPEED_FACTOR); // (SOH)CAHTOA (Convert to radians)
             }
             // Set the rigidbody's new velocity
             rigidBody.velocity = velocity;
@@ -54,7 +53,8 @@ public class Movement : MonoBehaviour {
     }
 
     private void Update() {
-        Move(currentInput);
+        // Allow movement if game is not paused
+        if (!PauseMenu.GamePaused) Move(currentInput);
     }
 
     // Method to read in the input from Unity's 'InputAction' package
