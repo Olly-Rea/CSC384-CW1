@@ -10,11 +10,7 @@ public class Asteroid : MonoBehaviour, IPooledObject {
     public int health = 100;
 
     // Method to be called whenever the Object is spawned
-    public void OnObjectSpawn() {
-        
-        Debug.Log("Spawned!");
-
-    }
+    public void OnObjectSpawn() {}
 
     // Method to have the Asteroid take damage
     public void Damage(int damage) {
@@ -37,6 +33,7 @@ public class Asteroid : MonoBehaviour, IPooledObject {
     private void Despawn() {
         // Set the 'active' attribute of the GameObject to false 
         thisAsteroid.SetActive(false);
+        AsteroidField.activeAsteroids--;
     }
 
 }

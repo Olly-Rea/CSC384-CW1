@@ -9,8 +9,9 @@ public class ObjectPooler : MonoBehaviour {
     public class Pool {
         // 'Pool' class attributes
         public string tag;
-        public GameObject prefab;
+        public GameObject[] prefab;
         public int size;
+        public GameObject parentContainer;
     }
 
     // Create a reference for this ObjectPooler
@@ -19,8 +20,9 @@ public class ObjectPooler : MonoBehaviour {
         Instance = this;
     }
 
-    // Create a list of Pools
-    public List<Pool> pools;
+    // SerializeField to store the list of Pools
+    [SerializeField] List<Pool> pools;
+
     // Create a dictionary to contain the object pools
     public Dictionary<string, Queue<GameObject>> poolDict;
 
@@ -33,8 +35,15 @@ public class ObjectPooler : MonoBehaviour {
             // Seed the current pool
             for(int i = 0; i < pool.size; i++) {
                 // Create the game object and make it inactive
-                GameObject obj = Instantiate(pool.prefab);
+                GameObject obj;
+                if (pool.prefab.Length > 1) {
+                    obj = Instantiate(pool.prefab[Random.Range(0, pool.prefab.Length)]);
+                } else {
+                    obj = Instantiate(pool.prefab[0]);
+                }
                 obj.SetActive(false);
+                // Add the Object to it's parent container
+                obj.transform.parent = pool.parentContainer.transform;
                 // Add the object to the queue
                 objectPool.Enqueue(obj);
             }
@@ -52,6 +61,7 @@ public class ObjectPooler : MonoBehaviour {
         } else {
             // Dequeue the next object from the pool
             GameObject toSpawn = poolDict[key].Dequeue();
+
             // Set the object as active and assign it a position and rotation 
             toSpawn.SetActive(true);
             toSpawn.transform.position = position;

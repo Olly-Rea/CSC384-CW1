@@ -29,9 +29,9 @@ public class Cannons : MonoBehaviour {
         canFire = false;
         // Fire on the NEXT active side
         if (side = !side) {
-            objectPooler.spawnFromPool("laser", leftCannon.position, leftCannon.rotation);
+            objectPooler.spawnFromPool("Laser", leftCannon.position, leftCannon.rotation);
         } else {
-            objectPooler.spawnFromPool("laser", rightCannon.position, rightCannon.rotation);
+            objectPooler.spawnFromPool("Laser", rightCannon.position, rightCannon.rotation);
         }
         // Wait for the fireRate limiter
         yield return new WaitForSeconds(fireRate);

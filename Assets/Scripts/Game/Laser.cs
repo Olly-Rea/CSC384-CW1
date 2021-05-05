@@ -57,7 +57,9 @@ public class Laser : MonoBehaviour, IPooledObject {
         // Wait for the fireRate limiter
         yield return new WaitForSeconds(time);
         // Set the 'active' attribute of the GameObject to false 
-        thisLaser.SetActive(false);        
+        thisLaser.SetActive(false);
+        // Reset the velocity of the laserRigBod
+        laserRigBod.velocity = Vector2.zero;
     }
 
 }
