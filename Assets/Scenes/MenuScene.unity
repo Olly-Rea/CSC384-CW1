@@ -1036,7 +1036,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ASTEROIDS
+  m_text: ASTEROIDS 384
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 43514f38a6ff5db40910fc4a183844c9, type: 2}
   m_sharedMaterial: {fileID: -6405007162593874995, guid: 43514f38a6ff5db40910fc4a183844c9,
@@ -1944,7 +1944,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ASTEROIDS
+  m_text: ASTEROIDS 384
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 43514f38a6ff5db40910fc4a183844c9, type: 2}
   m_sharedMaterial: {fileID: -6405007162593874995, guid: 43514f38a6ff5db40910fc4a183844c9,
@@ -2522,7 +2522,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ASTEROIDS
+  m_text: ASTEROIDS 384
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 43514f38a6ff5db40910fc4a183844c9, type: 2}
   m_sharedMaterial: {fileID: -6405007162593874995, guid: 43514f38a6ff5db40910fc4a183844c9,

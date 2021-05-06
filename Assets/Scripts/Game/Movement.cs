@@ -6,6 +6,9 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Movement : MonoBehaviour {
 
+    // Public static value to determine if the player can move
+    public static bool canMove = true;
+
     [SerializeField] int maxSpeed = 20;
     [SerializeField] double turnSpeed = 0.7;
 
@@ -54,7 +57,7 @@ public class Movement : MonoBehaviour {
 
     private void Update() {
         // Allow movement if game is not paused
-        if (!PauseMenu.GamePaused) Move(currentInput);
+        if (!PauseController.GamePaused && canMove) Move(currentInput);
     }
 
     // Method to read in the input from Unity's 'InputAction' package

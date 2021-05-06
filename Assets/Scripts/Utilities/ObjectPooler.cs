@@ -61,24 +61,29 @@ public class ObjectPooler : MonoBehaviour {
         } else {
             // Dequeue the next object from the pool
             GameObject toSpawn = poolDict[key].Dequeue();
+            // Check that the item is not already active
+            if(!toSpawn.activeSelf) {
+                // Set the object as active and assign it a position and rotation 
+                toSpawn.SetActive(true);
+                toSpawn.transform.position = position;
+                toSpawn.transform.rotation = rotation;
 
-            // Set the object as active and assign it a position and rotation 
-            toSpawn.SetActive(true);
-            toSpawn.transform.position = position;
-            toSpawn.transform.rotation = rotation;
-
-            // Call on the OnObjectSpawn method of the IPooledObject Interface
-            IPooledObject pooled = toSpawn.GetComponent<IPooledObject>();
-            if (pooled != null) {
-                pooled.OnObjectSpawn();
+                // Call on the OnObjectSpawn method of the IPooledObject Interface
+                IPooledObject pooled = toSpawn.GetComponent<IPooledObject>();
+                if (pooled != null) {
+                    pooled.OnObjectSpawn();
+                }
             }
-
             // Add the dequeued object back to the end of the queue
             poolDict[key].Enqueue(toSpawn);
             // Return the object to spawn
             return toSpawn;
         }
-
     }
 
+    // Method to return the queue of gameObjects
+    public Queue<GameObject> getPool(string key) {
+        return poolDict[key];
+    }
+    
 }

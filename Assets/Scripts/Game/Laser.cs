@@ -26,8 +26,8 @@ public class Laser : MonoBehaviour, IPooledObject {
         velocity.y = (float)(speed * Math.Cos(laserRigBod.rotation / 57.2958)); // (SOH)CAHTOA (Convert to radians)
         // Set the velocity of the laser
         laserRigBod.velocity = velocity;
-        // Despawn the laser again (after 3 seconds)
-        StartCoroutine(Despawn(3.0f));
+        // Despawn the laser again (after 1(ish) second)
+        StartCoroutine(Despawn(1.0f));
     }
 
     // private void Update() {

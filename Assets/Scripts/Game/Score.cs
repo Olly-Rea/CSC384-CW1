@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Score : MonoBehaviour {
     
@@ -8,13 +9,13 @@ public class Score : MonoBehaviour {
     [SerializeField] GameObject scoreObj;
     // private variable to hold the score and score text
     private int score = 0;
-    private TMPro.TextMeshProUGUI scoreText;
+    private TextMeshProUGUI scoreText;
     
     // Create a reference for the Score class
     public static Score Instance;
     private void Awake() {
         Instance = this;
-        scoreText = scoreObj.GetComponent<TMPro.TextMeshProUGUI>();
+        scoreText = scoreObj.GetComponent<TextMeshProUGUI>();
     }
 
     // Method to increment the player score (and display to UI)

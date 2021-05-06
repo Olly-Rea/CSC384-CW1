@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8057571459597252102}
   - component: {fileID: -4022397416605345372}
   m_Layer: 0
-  m_Name: largeAsteroid
+  m_Name: smallAsteroid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,7 +98,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 24
-  m_LinearDrag: 0.1
+  m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -131,4 +131,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thisAsteroid: {fileID: 0}
+  speed: 5
   health: 100
