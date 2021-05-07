@@ -132,4 +132,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisAsteroid: {fileID: 0}
   speed: 2
+  explosiveForce: 4
   health: 100

@@ -56,14 +56,14 @@ public class Movement : MonoBehaviour {
     }
 
     private void Update() {
-        // Allow movement if game is not paused
-        if (!PauseController.GamePaused && canMove) Move(currentInput);
+        // Only move if playerMovement is allowed
+        if (canMove) Move(currentInput);
     }
 
     // Method to read in the input from Unity's 'InputAction' package
     public void onMove(InputAction.CallbackContext context) {
         currentInput = context.ReadValue<Vector2>();
-        Update();
+        // Update();
     }
     
 }

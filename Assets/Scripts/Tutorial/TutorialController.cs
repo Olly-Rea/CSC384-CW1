@@ -1,29 +1,116 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TutorialController : MonoBehaviour {
 
-    // 1. Practice flying (Disable weapons and asteroids)
-    // 2. Practice shooting (enable weapons)
-    // 3. Practice run (enable some asteroids)
-
-    // Queue to hold each stage of the Tutorial
-    private Queue<GameObject> stages;
+    // Public static field to tell if a task is complete
+    public static bool taskComplete = false;
 
     // Serialized field to hold the nextButton
-    [SerializeField] GameObject nextButton;
+    [SerializeField] GameObject nextButtonObject;
+    // Private variable to hold the Button component
+    private Button nextButton;
+
+    // Private int for counting dialogue
+    private int dialogueCounter;
 
     // Start is called before the first frame update
     void Start() {
-        // Initalise the stages Queue
-        stages = new Queue<GameObject>();
-
+        // Get the button component from the nextButton
+        nextButton = nextButtonObject.GetComponent<Button>();
         // Disable movement and cannons
         Movement.canMove = Cannons.canFire = false;
+        // Set dialogue counger to 0
+        dialogueCounter = 0;
+    }
 
-        // // Start the Dialogue
-        // DialogueController.StartDialogue();
+    private void Update() {
+        // Check to see if the current task has been completed
+        if (TrackPlayer.taskComplete) {
+            nextButtonObject.SetActive(true);
+            TrackPlayer.taskComplete = false;
+        }
+    }
+
+    // Method to perform actions based on the dialogue counter
+    public void incrementDialogueCounter() {
+        // Increment dialogue counter
+        dialogueCounter++;
+
+        // Check if dialogue has reached section to test movement
+        if (dialogueCounter == 1)  {
+            // Hide the next button until the movement section has been completed
+            DialogueController.waitForEvent = true;
+            // Add an event listener to call on the MoveTutorial when the dialogue has finished
+            DialogueController.dialogueEvent.AddListener(MoveTutorial);
+        }
+
+        // Check if dialogue has reached section to test shooting
+        if (dialogueCounter == 2) {
+            // Add an event listener to call on the ShootTutorial when the dialogue has finished
+            DialogueController.dialogueEvent.AddListener(ShootTutorial);
+        }
+
+        if (dialogueCounter == 3) {
+            // Show the next button for the remainder of the dialogue
+            DialogueController.waitForEvent = false;
+        }
+
+        // Check if dialogue has reached section to do a trial run
+        if (dialogueCounter == 4) {
+            // Add an event listener to call on the TrialRun when the dialogue has finished
+            DialogueController.dialogueEvent.AddListener(TrialRun);
+
+            // DEBUG
+            Debug.Log("trial run time!");
+
+            // // Add the code to start the trial run
+            // nextButton.onClick.AddListener();
+        }
+
+    }
+
+    // 1. Practice flying (Disable weapons and asteroids)
+    public void MoveTutorial() {
+        // Remove this listener from the dialogue controller
+        DialogueController.dialogueEvent.RemoveListener(MoveTutorial);
+        // Allow movement...
+        Movement.canMove = true;
+        // ...and un-pause the game
+        PauseController.Resume();
+    }
+
+    // 2. Practice shooting (enable weapons)
+    public void ShootTutorial() {
+        // Remove this listener from the dialogue controller
+        DialogueController.dialogueEvent.RemoveListener(ShootTutorial);
+        // Allow shooting
+        Cannons.canFire = true;
+    }
+
+    // 3. Practice run (enable some asteroids)
+    public void TrialRun() {
+        // Remove this listener from the dialogue controller
+        DialogueController.dialogueEvent.RemoveListener(TrialRun);
+
+        // if (Asteroids all gone) {
+        //     taskComplete = true;
+        // }
+
+        if (taskComplete) {
+            nextButton.onClick.AddListener(EndTutorial);
+            nextButtonObject.SetActive(true);
+        }
+
+    }
+
+    // Method to be called at the end of the tutorial
+    public void EndTutorial() {
+        // Return to the main menu
+        SceneManager.LoadScene(0);
     }
 
 }

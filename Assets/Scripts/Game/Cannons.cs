@@ -49,13 +49,8 @@ public class Cannons : MonoBehaviour {
 
     // Method to read in the boolean input from Unity's 'InputAction' fire command
     public void onFire(InputAction.CallbackContext context) {
-        // Allow firing if game is not paused
-        if (!PauseController.GamePaused) {
-            // Get a boolean value from the input context
-            toFire = (context.ReadValueAsButton()) ? true : false;
-        } else {
-            toFire = false;
-        }
+        // Get a boolean value from the input context
+        toFire = (context.ReadValueAsButton()) ? true : false;
     }
 
 }
