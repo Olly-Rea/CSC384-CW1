@@ -134,6 +134,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23b045d533eac8d43972d2a11e6c9a16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 28
+  speed: 36
   thisLaser: {fileID: 1161057342661586165}
   damage: 12

@@ -38,8 +38,14 @@ public class Laser : MonoBehaviour, IPooledObject {
 
     // Method triggered when a laser hits an asteroid
     void OnTriggerEnter2D(Collider2D hitObject) {
+        // Get the asteroid parent object
+        GameObject asteroidObject = hitObject.transform.parent.gameObject;
         // Get the asteroid that has been hit
-        Asteroid asteroid = hitObject.GetComponent<Asteroid>();
+        Asteroid asteroid = (asteroidObject.GetComponent<LargeAsteroid>() != null) 
+            ? (Asteroid) asteroidObject.GetComponent<LargeAsteroid>() 
+            : (Asteroid) asteroidObject.GetComponent<SmallAsteroid>();
+
+        // If the asteroid is not null
         if (asteroid != null) {
             // Inflict damage on the asteroid
             asteroid.Damage(damage);
