@@ -314,6 +314,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: largeAsteroid_1
       objectReference: {fileID: 0}
+    - target: {fileID: 2489631164892489047, guid: 4e155aa20f4304c49a2958756edca69e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3095322627876697300, guid: 4e155aa20f4304c49a2958756edca69e,
         type: 3}
       propertyPath: m_RootOrder
@@ -400,6 +405,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7504302233601089873, guid: 4e155aa20f4304c49a2958756edca69e,
+        type: 3}
+      propertyPath: m_fontSize
+      value: 3.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7504302233601089873, guid: 4e155aa20f4304c49a2958756edca69e,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 3.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7936457268205458169, guid: 4e155aa20f4304c49a2958756edca69e,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7936457268205458169, guid: 4e155aa20f4304c49a2958756edca69e,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -4022397416605345372, guid: 4e155aa20f4304c49a2958756edca69e, type: 3}

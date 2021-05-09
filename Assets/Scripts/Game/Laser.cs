@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
 
@@ -12,9 +11,13 @@ public class Laser : MonoBehaviour, IPooledObject {
     private Rigidbody2D laserRigBod;
     private Vector2 velocity;
 
+    // Object pooler to be instantiated at Start()
+    private ObjectPooler objectPooler;
+
     // Get the rigidbody component from the game object on creation
     private void Awake() {
         laserRigBod = thisLaser.GetComponent<Rigidbody2D>();
+        objectPooler = ObjectPooler.Instance;
     }
 
     // Method to be called whenever the Object is spawned
@@ -44,14 +47,17 @@ public class Laser : MonoBehaviour, IPooledObject {
         Asteroid asteroid = (asteroidObject.GetComponent<LargeAsteroid>() != null) 
             ? (Asteroid) asteroidObject.GetComponent<LargeAsteroid>() 
             : (Asteroid) asteroidObject.GetComponent<SmallAsteroid>();
-
         // If the asteroid is not null
         if (asteroid != null) {
+            // Spawn a damage indicator
+            GameObject damageIndicator = objectPooler.spawnFromPool("DamageIndicator", transform.position, Quaternion.identity);
+            damageIndicator.GetComponent<DamageIndicator>().setDamage(damage);
+
             // Inflict damage on the asteroid
             asteroid.Damage(damage);
 
-            // DEBUG
-            Debug.Log("Name: " + asteroid.name + ", Health: " + asteroid.health);
+            // // DEBUG
+            // Debug.Log("Name: " + asteroid.name + ", Health: " + asteroid.health);
 
         }
         // Despawn the laser

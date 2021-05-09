@@ -1,7 +1,6 @@
 using UnityEngine;
 // Custom imports
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.InputSystem;
 
 public class Cannons : MonoBehaviour {
@@ -50,7 +49,7 @@ public class Cannons : MonoBehaviour {
     // Method to read in the boolean input from Unity's 'InputAction' fire command
     public void onFire(InputAction.CallbackContext context) {
         // Get a boolean value from the input context
-        toFire = (context.ReadValueAsButton()) ? true : false;
+        toFire = (context.ReadValueAsButton() && !PauseController.GamePaused) ? true : false;
     }
 
 }

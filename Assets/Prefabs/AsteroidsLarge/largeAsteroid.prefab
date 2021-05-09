@@ -85,7 +85,6 @@ MonoBehaviour:
   speed: 2
   health: 100
   scoreIncrementer: 10
-  explosiveForce: 10
 --- !u!1 &1251843781595931744
 GameObject:
   m_ObjectHideFlags: 0

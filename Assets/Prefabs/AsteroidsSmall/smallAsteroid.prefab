@@ -82,7 +82,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisObject: {fileID: 0}
   destroyEffect: {fileID: 8278630166280311987}
-  speed: 2
+  speed: 5
   health: 100
   scoreIncrementer: 20
 --- !u!1 &6677161721154063744

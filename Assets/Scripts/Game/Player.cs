@@ -4,27 +4,28 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-    // Struct to hold PlayerData
-    struct PlayerData {
-        // Cannon level
-        int cannonLvl;
-        // Cannon "clip" level
-        int clipLvl;
-        // Thrust level
-        int thrustLvl;
-        // Turning level
-        int turnLvl;
-    }
+    // Cannon level
+    public int cannonLvl;
+    // Cannon "clip" level
+    public int clipLvl;
+    // Thrust level
+    public int thrustLvl;
+    // Turning level
+    public int turnLvl;
+    // Shield level
+    public int shieldLevel;
+    // Player health
+    public int playerHealth;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    // Method triggered when a laser hits an asteroid
+    void OnTriggerEnter2D(Collider2D hitObject) {
+
+        
+        Debug.Log("Player hurt!");
+
+        playerHealth -= 1;
         
     }
+    
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

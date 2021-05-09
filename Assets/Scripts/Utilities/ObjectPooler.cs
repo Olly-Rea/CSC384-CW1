@@ -43,7 +43,10 @@ public class ObjectPooler : MonoBehaviour {
                 }
                 obj.SetActive(false);
                 // Add the Object to it's parent container
-                obj.transform.parent = pool.parentContainer.transform;
+                obj.transform.SetParent(pool.parentContainer.transform);
+                
+                // obj.transform.parent = ;
+
                 // Add the object to the queue
                 objectPool.Enqueue(obj);
             }
@@ -83,7 +86,12 @@ public class ObjectPooler : MonoBehaviour {
 
     // Method to return the queue of gameObjects
     public Queue<GameObject> getPool(string key) {
-        return poolDict[key];
+        if (!poolDict.ContainsKey(key)) {
+            Debug.LogWarning("Pool with key " + key + " does not exist!");
+            return null;
+        } else {
+            return poolDict[key];
+        }
     }
     
 }

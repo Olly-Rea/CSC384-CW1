@@ -30,8 +30,14 @@ public class TutorialController : MonoBehaviour {
     private void Update() {
         // Check to see if the current task has been completed
         if (TrackPlayer.taskComplete) {
-            nextButtonObject.SetActive(true);
-            TrackPlayer.taskComplete = false;
+            if (dialogueCounter < 4) {
+                nextButtonObject.SetActive(true);
+                TrackPlayer.taskComplete = false;
+            // Check for tutorial end
+            } else {
+                TrackPlayer.taskComplete = false;
+                nextButton.onClick.AddListener(EndTutorial);
+            }
         }
     }
 
@@ -47,28 +53,19 @@ public class TutorialController : MonoBehaviour {
             // Add an event listener to call on the MoveTutorial when the dialogue has finished
             DialogueController.dialogueEvent.AddListener(MoveTutorial);
         }
-
         // Check if dialogue has reached section to test shooting
         if (dialogueCounter == 2) {
             // Add an event listener to call on the ShootTutorial when the dialogue has finished
             DialogueController.dialogueEvent.AddListener(ShootTutorial);
         }
-
         if (dialogueCounter == 3) {
             // Show the next button for the remainder of the dialogue
             DialogueController.waitForEvent = false;
         }
-
         // Check if dialogue has reached section to do a trial run
         if (dialogueCounter == 4) {
             // Add an event listener to call on the TrialRun when the dialogue has finished
             DialogueController.dialogueEvent.AddListener(TrialRun);
-
-            // DEBUG
-            Debug.Log("trial run time!");
-
-            // // Add the code to start the trial run
-            // nextButton.onClick.AddListener();
         }
 
     }
@@ -95,16 +92,8 @@ public class TutorialController : MonoBehaviour {
     public void TrialRun() {
         // Remove this listener from the dialogue controller
         DialogueController.dialogueEvent.RemoveListener(TrialRun);
-
-        // if (Asteroids all gone) {
-        //     taskComplete = true;
-        // }
-
-        if (taskComplete) {
-            nextButton.onClick.AddListener(EndTutorial);
-            nextButtonObject.SetActive(true);
-        }
-
+        // Add 4 asteroids to the scene
+        AsteroidField.maxActive = 4;
     }
 
     // Method to be called at the end of the tutorial

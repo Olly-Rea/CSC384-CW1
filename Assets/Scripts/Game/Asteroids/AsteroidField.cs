@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AsteroidField : MonoBehaviour {
@@ -8,17 +7,16 @@ public class AsteroidField : MonoBehaviour {
     public static int activeAsteroids;
     public static int maxActive;
     public static int maxSpeed;
+    public static int explosiveForce;
 
     // Buffer zone radius to use when spawning in new Asteroids
     public static int bufferZone = 24;
 
-    // Unity Input field for the above
+    // SerializeField for the maximum asteroids (from Unity Editor input)
     [SerializeField] int maxActiveInput;
-
     // SerializeField for the player GameObject
     [SerializeField] GameObject player;
     
-
     // Max distance from player before despawning Asteroid
     private const int MAX_DISTANCE = 40;
 
@@ -31,7 +29,8 @@ public class AsteroidField : MonoBehaviour {
         activeAsteroids = 0;
         maxActive = maxActiveInput;
         // Run the check to see how far each asteroid is from the player
-        StartCoroutine(CheckDistanceFromPlayer());
+        StartCoroutine(CheckDistanceFromPlayer("LargeAsteroid"));
+        StartCoroutine(CheckDistanceFromPlayer("SmallAsteroid"));
     }
 
     private void Update() {
@@ -71,8 +70,10 @@ public class AsteroidField : MonoBehaviour {
     }
 
     // Method to loop through all active asteroids and check distance from the player
-    IEnumerator CheckDistanceFromPlayer() {
-        foreach(GameObject asteroid in objectPooler.getPool("LargeAsteroid")) {
+    IEnumerator CheckDistanceFromPlayer(string pool) {
+        // wait half a second before calling the check
+        yield return new WaitForSeconds(0.5f);
+        foreach(GameObject asteroid in objectPooler.getPool(pool)) {
             // Check that the asteroid is active first
             if (asteroid.activeSelf) {
                 // Get the distance of the asteroid from the player
@@ -86,9 +87,7 @@ public class AsteroidField : MonoBehaviour {
                 }
             }
         }
-        // wait half a second before calling the check again
-        yield return new WaitForSeconds(0.5f);
-        StartCoroutine(CheckDistanceFromPlayer());
+        StartCoroutine(CheckDistanceFromPlayer(pool));
     }
 
 }

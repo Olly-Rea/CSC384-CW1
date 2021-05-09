@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,7 +16,6 @@ public class TrackPlayer : MonoBehaviour {
     private CurrentTask task;
     private float distance;
     private int shotsFired;
-    private int asteroidsDestroyed;
 
     private void Start() {
         // Initialise the task and starting values of the player tracking
@@ -26,7 +24,6 @@ public class TrackPlayer : MonoBehaviour {
 
         lastPos = player.transform.position;
         shotsFired = 0;
-        asteroidsDestroyed = 0;
 
         // Run the check to see how far the player has travelled
         StartCoroutine(TrackPlayerDistance());
@@ -39,10 +36,8 @@ public class TrackPlayer : MonoBehaviour {
             if (distance > 50) {
                 // Indicate that the task has been completed
                 taskComplete = true;
-
                 // Stop tracking player distance
                 StopCoroutine(TrackPlayerDistance());
-
                 // Set the next task
                 task = CurrentTask.Shooting;
             }
@@ -54,11 +49,16 @@ public class TrackPlayer : MonoBehaviour {
                 // Set the next task
                 task = CurrentTask.TrialRun;
             }
-        } else {
+        } else if(task == CurrentTask.TrialRun) {
             // Check the number of asteroids destroyed
-            if (asteroidsDestroyed > 5) {
+            if (Score.Instance.GetScore() >= 280) {
                 // Indicate that the task has been completed
                 taskComplete = true;
+                // Add end dialogue to the DialogueController
+                DialogueController.Instance.addSentence("Great job pilot! You're ready for action!\nTo end the tutorial, press NEXT");
+                DialogueController.Instance.StartDialogue();
+                // Set the next task
+                task = CurrentTask.End;
             }
         }
     }
@@ -84,5 +84,6 @@ public class TrackPlayer : MonoBehaviour {
 public enum CurrentTask {
     Movement,
     Shooting,
-    TrialRun
+    TrialRun,
+    End
 }

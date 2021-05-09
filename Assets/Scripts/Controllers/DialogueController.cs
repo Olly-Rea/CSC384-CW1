@@ -12,9 +12,6 @@ public class DialogueController : MonoBehaviour {
     // UnityEvent to broadcast dialogue events
     public static UnityEvent dialogueEvent;
 
-    // // Public field to check if user input should be paused while the dialogue is open
-    // [SerializeField] bool pauseOnDialogue;
-
     // Serialized field to store the sentence inputs (specified min and max Unity TextArea lines)
     [TextArea(3, 10)][SerializeField] string[] inputs;
     // Serialized field to hold the nextButton
@@ -28,6 +25,12 @@ public class DialogueController : MonoBehaviour {
 
     // Private variable to hold the queue of dialogue sentences
     private Queue<string> sentences;
+
+    // Create a reference for this DialogueController
+    public static DialogueController Instance;
+    private void Awake() {
+        Instance = this;
+    }
 
     // Method to initialise the Dialogue attributes
     void Start() {
@@ -80,21 +83,17 @@ public class DialogueController : MonoBehaviour {
             CloseDialogue();
             return;
         }
-
-        // // Pause the game (if specified)
-        // if (pauseOnDialogue) PauseController.Pause();
-
         // Otherwise display the next sentence in the dialogue text
         StartCoroutine(AnimateSentence(sentences.Dequeue()));
     }
 
+    // Method to add a new sentence to the dialogue
+    public void addSentence(string input) {
+        sentences.Enqueue(input);
+    }
+
     // Method to close the dialogue
     void CloseDialogue() {
-        // Unpause the game
-        if (PauseController.GamePaused) {
-            Time.timeScale = 1.0f;
-            PauseController.GamePaused = false;
-        }
         // Set the animation to "close" the dialogue popup
         animator.SetBool("IsOpen", false);
     }
