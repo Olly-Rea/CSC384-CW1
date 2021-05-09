@@ -18,9 +18,12 @@ public class Movement : MonoBehaviour {
     // Speed modifier (Constant)
     private const double SPEED_FACTOR = 0.08;
 
+    private GameObject playerShip;
+
     // Method called when class initialized
     private void Awake() {
         rigidBody = gameObject.GetComponent<Rigidbody2D>();
+        playerShip = transform.GetChild(0).gameObject;
     }
     
     // Method to move the player model
@@ -41,7 +44,7 @@ public class Movement : MonoBehaviour {
         // Check if the input is up/forwards (or up/forwards and turning)
         if((Math.Abs(Math.Round(input.x, 1)) == 0.7 && Math.Round(input.y, 1) == 0.7) || input.y == 1) {
             // Show the ship exhaust 
-            this.gameObject.transform.GetChild(1).GetComponent<Renderer>().enabled = true;
+            playerShip.transform.GetChild(1).GetComponent<Renderer>().enabled = true;
             // Change the player's velocity vectors (only if vector magnitude < maxSpeed)
             if (magnitude < maxSpeed){
                 velocity.x -= (float)(input.y * Math.Sin(rigidBody.rotation/57.2958) * SPEED_FACTOR); // SOH(CAH)TOA (Convert to radians)
@@ -51,7 +54,7 @@ public class Movement : MonoBehaviour {
             rigidBody.velocity = velocity;
         } else {
             // Hide the ship exhaust
-            this.gameObject.transform.GetChild(1).GetComponent<Renderer>().enabled = false;
+            playerShip.transform.GetChild(1).GetComponent<Renderer>().enabled = false;
         }
     }
 

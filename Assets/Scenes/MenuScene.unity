@@ -2763,8 +2763,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: ASTEROIDS 384
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 43514f38a6ff5db40910fc4a183844c9, type: 2}
-  m_sharedMaterial: {fileID: -6405007162593874995, guid: 43514f38a6ff5db40910fc4a183844c9,
+  m_fontAsset: {fileID: 11400000, guid: 67375f7d721f7d2479236a8e3c88ed84, type: 2}
+  m_sharedMaterial: {fileID: -6405007162593874995, guid: 67375f7d721f7d2479236a8e3c88ed84,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -4069,8 +4069,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: ASTEROIDS 384
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 43514f38a6ff5db40910fc4a183844c9, type: 2}
-  m_sharedMaterial: {fileID: -6405007162593874995, guid: 43514f38a6ff5db40910fc4a183844c9,
+  m_fontAsset: {fileID: 11400000, guid: 67375f7d721f7d2479236a8e3c88ed84, type: 2}
+  m_sharedMaterial: {fileID: -6405007162593874995, guid: 67375f7d721f7d2479236a8e3c88ed84,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -4994,8 +4994,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: ASTEROIDS 384
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 43514f38a6ff5db40910fc4a183844c9, type: 2}
-  m_sharedMaterial: {fileID: -6405007162593874995, guid: 43514f38a6ff5db40910fc4a183844c9,
+  m_fontAsset: {fileID: 11400000, guid: 67375f7d721f7d2479236a8e3c88ed84, type: 2}
+  m_sharedMaterial: {fileID: -6405007162593874995, guid: 67375f7d721f7d2479236a8e3c88ed84,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}

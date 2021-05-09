@@ -7,6 +7,8 @@ public class Cannons : MonoBehaviour {
 
     // Public static value to determine if the player can fire the cannons
     public static bool canFire = true;
+    // Value to hold the damage dealt by each laser
+    public static int laserDamage;
 
     // SerializeFields for the ship cannons
     [SerializeField] Transform leftCannon;

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -19,6 +18,13 @@ public class DamageIndicator : MonoBehaviour, IPooledObject {
         damageText = textObject.GetComponent<TextMeshProUGUI>();
         textAnimator = textObject.GetComponent<Animator>();
     }
+
+    // // Move the indicator up while active/shown
+    // private void Update() {
+    //     if (transform.gameObject.activeSelf){
+    //         transform.position = new Vector2(transform.position.x, transform.position.y + 1);
+    //     }
+    // }
 
     // Method to be called whenever the Object is spawned
     public void OnObjectSpawn() {

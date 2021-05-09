@@ -56,7 +56,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Applbb__ Atlas Material
   m_Shader: {fileID: 4800000, guid: 68e6db2ebdc24f95958faec2be5558d6, type: 3}
-  m_ShaderKeywords: 
+  m_ShaderKeywords: UNDERLAY_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -160,11 +160,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: Applbb__ SDF
+  m_Name: Applbb__ SDF - Underlay
   m_EditorClassIdentifier: 
-  hashCode: -1605801892
+  hashCode: 1829786797
   material: {fileID: -6405007162593874995}
-  materialHashCode: 1748063740
+  materialHashCode: -1655571603
   m_Version: 1.1.0
   m_SourceFontFileGUID: 030cdaae43311d04e9caf3b8b46fb355
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 030cdaae43311d04e9caf3b8b46fb355,
