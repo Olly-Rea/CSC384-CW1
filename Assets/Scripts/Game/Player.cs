@@ -1,5 +1,4 @@
 using System.Collections;
-// using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -7,15 +6,10 @@ public class Player : MonoBehaviour {
 
     // Cannon attributes
     public int clipSize;
-    // Speed/Agility attributes
-    public int maxSpeed;
-    public int turnSpeed;
+    
     // Health attributes
     public int shieldLevel;
     public int playerHealth;
-
-    // Value to hold the current difficulty factor (for damage dealt by asteroid collisions)
-    public static double damageFactor;
 
     // Public value to indicate the player is dead
     public static bool isDead;
@@ -35,7 +29,7 @@ public class Player : MonoBehaviour {
     [SerializeField] GameObject deathMenu;
 
     // Method called on script initialisation
-    private void Start() {
+    void Start() {
         // Initialise values for the player
         clipSize = 200;
 
@@ -60,7 +54,7 @@ public class Player : MonoBehaviour {
         // Check the healthBar existence (tutorial or not)
         if (healthBar != null) {
             // Create a "damage" value to hold the damage dealt by the collision
-            int collisionDamage = (int) System.Math.Round(collision.relativeVelocity.magnitude * damageFactor, 1);
+            int collisionDamage = (int) System.Math.Round(collision.relativeVelocity.magnitude * GameData.damageFactor, 1);
             // Check if the player still has a shield
             if (healthBar.GetShield() > 0) {
                 // if so, deal shield damage

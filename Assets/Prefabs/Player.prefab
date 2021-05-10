@@ -237,7 +237,6 @@ GameObject:
   - component: {fileID: 7906286790505182151}
   - component: {fileID: 7906286790505182149}
   - component: {fileID: 7906286790505182145}
-  - component: {fileID: 7906286790505182146}
   - component: {fileID: 7906286790505182147}
   m_Layer: 0
   m_Name: Player
@@ -254,7 +253,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7906286790505182171}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7906286790829636707}
@@ -434,18 +433,6 @@ MonoBehaviour:
   laserPrefab: {fileID: 1161057342661586165, guid: 17b149d66ff4a3c48b3156c9ccc72702,
     type: 3}
   fireRate: 0.2
---- !u!114 &7906286790505182146
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7906286790505182171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 519b4a0834bd8cc4486d0a877e5c9b0c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7906286790505182147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -465,6 +452,7 @@ MonoBehaviour:
   playerHealth: 100
   healthBar: {fileID: 0}
   destroyEffect: {fileID: 7906286791114980904}
+  deathMenu: {fileID: 0}
 --- !u!1 &7906286790829636706
 GameObject:
   m_ObjectHideFlags: 0

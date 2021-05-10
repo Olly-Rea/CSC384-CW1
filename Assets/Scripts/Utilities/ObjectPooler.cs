@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,7 +15,7 @@ public class ObjectPooler : MonoBehaviour {
 
     // Create a reference for this ObjectPooler
     public static ObjectPooler Instance;
-    private void Awake() {
+    void Awake() {
         Instance = this;
     }
 

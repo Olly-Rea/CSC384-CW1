@@ -7,7 +7,7 @@ public class LargeAsteroid : Asteroid {
     public static int explosiveForce;
 
     // Instantiate the object pooler at Start()
-    private void Start() {
+    void Start() {
         // Get the cameraShake component from the Main Camera
         cameraShake = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraShake>();
         // Setup asteroid atributes
@@ -22,13 +22,16 @@ public class LargeAsteroid : Asteroid {
         // Set a random angular velocity to the asteroid
         asteroidRigBod.angularVelocity = Random.Range(-10, 10);
         // Initialise the speed value
-        speed = AsteroidField.maxSpeed;
+        speed = GameData.asteroidSpeed;
         // Give the asteroid a velocity
         asteroidRigBod.velocity = new Vector2(Random.Range(-speed, speed), Random.Range(-speed, speed));
     }
 
     // Method to have the Asteroid take damage
     override public void Damage(int damage) {
+
+        // Debug.Log(damage + " " + health);
+
         // Check if the laser has destroyed the Asteroid
         if ((health -= damage) <= 0) {
             // Shake the player camera

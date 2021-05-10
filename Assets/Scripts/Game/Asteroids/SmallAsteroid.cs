@@ -3,7 +3,7 @@ using UnityEngine;
 public class SmallAsteroid : Asteroid {
 
     // Instantiate the object pooler at Start()
-    private void Start() {
+    void Start() {
         // Get the cameraShake component from the Main Camera
         cameraShake = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraShake>();
         // Setup asteroid atributes
@@ -18,7 +18,7 @@ public class SmallAsteroid : Asteroid {
         // Set a random angular velocity to the asteroid
         asteroidRigBod.angularVelocity = Random.Range(-10, 10);
         // Initialise the speed value
-        speed = AsteroidField.explosiveForce;
+        speed = GameData.explosiveForce;
         // Give the asteroid a velocity
         asteroidRigBod.velocity = new Vector2(Random.Range(-speed, speed), Random.Range(-speed, speed));
     }

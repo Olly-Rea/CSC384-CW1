@@ -6,11 +6,6 @@ public class AsteroidField : MonoBehaviour {
     // Public static values for number of currently active asteroids and max number of asteroids to have
     public static int activeAsteroids;
     public static int maxActive;
-    public static int maxSpeed;
-    public static int explosiveForce;
-
-    // Buffer zone radius to use when spawning in new Asteroids
-    public static int bufferZone = 24;
 
     // SerializeField for the maximum asteroids (from Unity Editor input)
     [SerializeField] int maxActiveInput;
@@ -23,7 +18,7 @@ public class AsteroidField : MonoBehaviour {
     // Instantiate the object pooler at Start()
     ObjectPooler objectPooler;
 
-    private void Start() {
+    void Start() {
         objectPooler = ObjectPooler.Instance;
         // Initialise the asteroid counter attributes
         activeAsteroids = 0;
@@ -31,6 +26,8 @@ public class AsteroidField : MonoBehaviour {
         // Run the check to see how far each asteroid is from the player
         StartCoroutine(CheckDistanceFromPlayer("LargeAsteroid"));
         StartCoroutine(CheckDistanceFromPlayer("SmallAsteroid"));
+        // Call on the function to increase the difficulty over time
+        StartCoroutine(increaseDifficulty());
     }
 
     private void Update() {
@@ -51,11 +48,11 @@ public class AsteroidField : MonoBehaviour {
         int distanceX, distanceY;
         // Ensure one of the axis is the bufferZone distance away from the player
         if (Random.value > 0.5f) {
-            distanceX = Random.Range(bufferZone, (int)(MAX_DISTANCE*0.8));
+            distanceX = Random.Range(GameData.bufferZone, (int)(MAX_DISTANCE*0.8));
             distanceY = Random.Range(0, (int)(MAX_DISTANCE*0.8));
         } else {
             distanceX = Random.Range(0, (int)(MAX_DISTANCE*0.8));
-            distanceY = Random.Range(bufferZone, (int)(MAX_DISTANCE*0.8));
+            distanceY = Random.Range(GameData.bufferZone, (int)(MAX_DISTANCE*0.8));
         }
 
         // Create the spawnPosition to use
@@ -66,7 +63,7 @@ public class AsteroidField : MonoBehaviour {
         // Spawn the asteroid
         GameObject asteroid = objectPooler.spawnFromPool("LargeAsteroid", spawnPosition, Quaternion.identity);
         // Set the asteroid speed
-        asteroid.GetComponent<Asteroid>().speed = maxSpeed;
+        asteroid.GetComponent<Asteroid>().speed = GameData.asteroidSpeed;
     }
 
     // Method to loop through all active asteroids and check distance from the player
@@ -79,7 +76,7 @@ public class AsteroidField : MonoBehaviour {
                 // Get the distance of the asteroid from the player
                 float distance = Vector2.Distance(player.transform.position, asteroid.transform.position);
                 // Check the if the distance is greater than the buffer zone AND the maximum distance
-                if (distance > bufferZone * 2 && distance > MAX_DISTANCE) {
+                if (distance > GameData.bufferZone * 2 && distance > MAX_DISTANCE) {
                     // Despawn the asteroid
                     asteroid.GetComponent<Asteroid>().Despawn();
                     // Decrement the number of active asteroids
@@ -88,6 +85,14 @@ public class AsteroidField : MonoBehaviour {
             }
         }
         StartCoroutine(CheckDistanceFromPlayer(pool));
+    }
+
+    // Method to increase the speed and explosion force of asteroids over time
+    IEnumerator increaseDifficulty() {
+        // Wait 15 seconds between each increment
+        yield return new WaitForSeconds(30f);
+        GameData.asteroidSpeed += 1;
+        GameData.explosiveForce += 1;
     }
 
 }

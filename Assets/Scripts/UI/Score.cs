@@ -1,5 +1,4 @@
 using System.Collections;
-// using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -13,7 +12,7 @@ public class Score : MonoBehaviour {
     
     // Create a reference for the Score class
     public static Score Instance;
-    private void Awake() {
+    void Awake() {
         Instance = this;
         scoreText = scoreObj.GetComponent<TextMeshProUGUI>();
     }
@@ -42,12 +41,12 @@ public class Score : MonoBehaviour {
         // If the scoreDisplay is less than the lastest score, increment the score
         while(scoreDisplay < score) {
             scoreText.text = "SCORE: " + $"{(scoreDisplay += 1):00000}";
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSecondsRealtime(0.02f);
         }
         // If the scoreDisplay is greater than the lastest score, decrement the score
         while (scoreDisplay > score) {
             scoreText.text = "SCORE: " + $"{(scoreDisplay -= 1):00000}";
-            yield return new WaitForSeconds(0.01f);
+            yield return null;
         }
     }
 
