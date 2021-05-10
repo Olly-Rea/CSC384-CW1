@@ -35,7 +35,7 @@ public class UpgradeController : MonoBehaviour {
         costs[MaxSpeed] = costs[TurningSpeed] = costs[FireRate] = costs[LaserDamage] = GameData.baseCost;
         // Initialise the levels dictionary
         levels = new Dictionary<Upgradeable, int>();
-        levels[MaxSpeed] = levels[TurningSpeed] = levels[FireRate] = levels[LaserDamage] = 1;
+        levels[MaxSpeed] = levels[TurningSpeed] = levels[FireRate] = levels[LaserDamage] = 0;
         // Initialise the modifiers dictionary
         modifiers = new Dictionary<Upgradeable, float>();
         modifiers[MaxSpeed] = modifiers[LaserDamage] = 1.2f;
@@ -88,13 +88,18 @@ public class UpgradeController : MonoBehaviour {
     public void CheckPrices() {
         // Loop through each level bar
         foreach (KeyValuePair<Upgradeable, int> upgrade in costs) {
-            // Enable/Disable Incrementer button & update cost of Levelbars
-            if (score.GetScore() < upgrade.Value) {
-                levelBars[upgrade.Key].Disable();
+            // Check if the LevelBar is "Maxed out" (and make so if true)
+            if (levels[upgrade.Key] >= 6) {
+                levelBars[upgrade.Key].setMaxed();            
             } else {
-                levelBars[upgrade.Key].Enable();
+                // Enable/Disable Incrementer button & update cost of Levelbars
+                if (score.GetScore() < upgrade.Value) {
+                    levelBars[upgrade.Key].Disable();
+                } else {
+                    levelBars[upgrade.Key].Enable();
+                }
+                levelBars[upgrade.Key].SetCost(costs[upgrade.Key]);
             }
-            levelBars[upgrade.Key].SetCost(costs[upgrade.Key]);
         }
     }
 
