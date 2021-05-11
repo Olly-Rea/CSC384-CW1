@@ -10,6 +10,8 @@ public class MainMenu : MonoBehaviour {
 
         // Clear any saveData from the GameController
         GameController.saveData = null;
+        // Ensure the player is treated as Alive
+        GameController.playerAlive = true;
 
         // Set the game diffciulty
         if (difficulty == 0) {
@@ -59,7 +61,11 @@ public class MainMenu : MonoBehaviour {
 
     // Method to load the TutorialScene
     public void Tutorial() {
-        GameController.setDifficulty( // Use "Easy" presets
+        // Clear any saveData from the GameController
+        GameController.saveData = null;
+
+        // Set the Tutorial Difficulty (Using values from "Easy")
+        GameController.setDifficulty( 
             0, // baseCost
             14, // MaxSpeed
             0.6f, // TurningSpeed
@@ -71,8 +77,11 @@ public class MainMenu : MonoBehaviour {
             20, // bufferZone
             1f // scoreModifier
         );
+
+        // Load the tutorial Scene
         SceneManager.LoadScene(1);
     }
+    
     // Method to exit the application
     public void ExitApp() {
         Application.Quit();

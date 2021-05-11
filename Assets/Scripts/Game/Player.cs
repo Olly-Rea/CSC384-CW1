@@ -7,10 +7,6 @@ public class Player : MonoBehaviour {
     // Cannon attributes
     public int clipSize;
     
-    // Health attributes
-    public int shieldLevel;
-    public int playerHealth;
-
     // Public value to indicate the player is dead
     public static bool isDead;
 
@@ -33,12 +29,6 @@ public class Player : MonoBehaviour {
         // Initialise values for the player
         clipSize = 200;
 
-        // Set the player health (if not in tutorial)
-        if (healthBar != null) {
-            healthBar.SetMaxHealth(playerHealth = 40);
-            healthBar.SetMaxShield(shieldLevel = 100);
-        }
-
         // Set the "playerShip" and "playerRigBod"
         playerShip = transform.GetChild(0).gameObject;
         playerRigBod = transform.GetComponent<Rigidbody2D>();
@@ -55,8 +45,13 @@ public class Player : MonoBehaviour {
         if (healthBar != null) {
             // Create a "damage" value to hold the damage dealt by the collision
             int collisionDamage = (int) System.Math.Round(collision.relativeVelocity.magnitude * GameController.damageFactor, 1);
+            
+            // Get teh current shield level and player health from the HealthBar
+            int shieldLevel = (int)healthBar.GetShield();
+            int playerHealth = (int)healthBar.GetHealth();
+
             // Check if the player still has a shield
-            if (healthBar.GetShield() > 0) {
+            if (shieldLevel > 0) {
                 // if so, deal shield damage
                 healthBar.SetShield(shieldLevel-=collisionDamage);
             } else {
@@ -79,6 +74,8 @@ public class Player : MonoBehaviour {
         playerRigBod.drag = 1.4f;
         // Disable further movement and firing
         Movement.canMove = Cannons.canFire = false;
+
+        GameController.playerAlive = false;
 
         // Play the "on destroy" effect
         destroyEffect.Play();

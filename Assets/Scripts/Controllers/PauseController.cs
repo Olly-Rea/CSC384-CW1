@@ -14,8 +14,8 @@ public class PauseController : MonoBehaviour {
     // Method to read in the input from the InputAction package
     public void onPause(InputAction.CallbackContext context) {
         if (context.performed) {
-            // Check that the death menu isn't active
-            if (!deathMenu.activeSelf) {
+            // Check that the player isn't dead
+            if (GameController.playerAlive) {
                 // Check if the upgrade menu is active
                 if (upgradeMenu.activeSelf) {
                     upgradeMenu.SetActive(false);

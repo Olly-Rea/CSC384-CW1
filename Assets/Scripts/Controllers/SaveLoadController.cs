@@ -55,12 +55,12 @@ public static class SaveLoadController {
     }
 
     // Method to get the date a save game file was created
-    public static string getSaveCreatedDate(int saveSlot) {
+    public static string GetSaveDateTime(int saveSlot) {
         // Get the path of the file
         string path = GetPath(saveSlot);
         // Double-Check the file exists (checked already in SaveLoadSlot too)
         if (File.Exists(path)) {
-            return File.GetCreationTime(path).ToString();
+            return File.GetLastWriteTime(path).ToString();
         } else {
             // Output error and return null
             Debug.LogError("File not found in" + path);

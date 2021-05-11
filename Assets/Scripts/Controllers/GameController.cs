@@ -7,6 +7,7 @@ using static Upgradeable;
 public class GameController : MonoBehaviour {
 
     // Game values
+    public static bool playerAlive;
     public static Difficulty difficultyLevel;
     public static float scoreModifier;
 
@@ -90,6 +91,9 @@ public class GameController : MonoBehaviour {
             // Game Values
             saveData.scoreModifier
         );
+
+        // Ensure the player is treated as alive on load
+        playerAlive = true;
 
         // Load the Game Scene
         SceneManager.LoadScene(2);
