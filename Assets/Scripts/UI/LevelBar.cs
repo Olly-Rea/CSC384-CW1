@@ -8,8 +8,6 @@ public class LevelBar : MonoBehaviour {
     [SerializeField] Upgradeable upgradeType;
     // Serialize field for the color to fill the bar with
     [SerializeField] Color fillColor;
-    // Serialize field to hold the starting value of the level bar
-    [SerializeField] int startingValue;
 
     // Public value to hold the textmeshPro "cost" value
     public TextMeshProUGUI costText;
@@ -33,18 +31,26 @@ public class LevelBar : MonoBehaviour {
         atMax = false;
         // Assign the UpgradeController
         upgradeController = UpgradeController.Instance;
+
         // Set the starting values of the level bar
-        value = startingValue;
+        value = 0;
         int maxValue = transform.childCount;
+
         // Initialise the bars array
         bars = new GameObject[maxValue];
         for(int i = 0; i < maxValue; i++) {
             bars[i] = transform.GetChild(i).gameObject;
         }
+
         // Get the incrementer button
         incrementer = transform.parent.GetChild(transform.GetSiblingIndex() + 1).gameObject;
         // Get the costText  text element
         costText = transform.parent.GetChild(transform.parent.childCount-1).gameObject.GetComponent<TextMeshProUGUI>();
+
+        // Set the levelbar level (if loading from savefile)
+        if(GameController.saveData != null) {
+            SetLevel(upgradeController.CheckLevel(upgradeType));
+        }
     }
 
     // Method to display a "level up" (increment the level bar)
@@ -68,6 +74,13 @@ public class LevelBar : MonoBehaviour {
         incrementer.GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
         // Set text color to red
         costText.color = new Color(0.8f, 0.5f, 0.5f, 1f);
+    }
+
+    // Method to set a level directly
+    public void SetLevel(int newVal) {
+        while(value < newVal) {
+            bars[value++].GetComponent<Image>().color = fillColor;
+        }
     }
 
     // Method to set the cost text of the LevelBar

@@ -38,7 +38,7 @@ public class Movement : MonoBehaviour {
         }
 
         // Set the rigidbody's new rotation
-        rigidBody.rotation -= (float)(input.x * GameData.playerUpgrades[TurningSpeed]);
+        rigidBody.rotation -= (float)(input.x * GameController.playerUpgrades[TurningSpeed]);
         // Get the current vector magnitude
         double magnitude = Math.Sqrt((velocity.x * velocity.x) + (velocity.y * velocity.y));
 
@@ -47,7 +47,7 @@ public class Movement : MonoBehaviour {
             // Show the ship exhaust 
             playerShip.transform.GetChild(1).GetComponent<Renderer>().enabled = true;
             // Change the player's velocity vectors (only if vector magnitude < maxSpeed)
-            if (magnitude < GameData.playerUpgrades[MaxSpeed]){
+            if (magnitude < GameController.playerUpgrades[MaxSpeed]){
                 velocity.x -= (float)(input.y * Math.Sin(rigidBody.rotation/57.2958) * SPEED_FACTOR); // SOH(CAH)TOA (Convert to radians)
                 velocity.y += (float)(input.y * Math.Cos(rigidBody.rotation/57.2958) * SPEED_FACTOR); // (SOH)CAHTOA (Convert to radians)
             }

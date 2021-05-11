@@ -7,7 +7,7 @@ public class PauseController : MonoBehaviour {
     // Value to determine if the game is currently in a paused state
     public static bool GamePaused = false;
     // Serialized fields to hold the different pause-enabled menus
-    [SerializeField] GameObject pauseMenu, upgradeMenu, deathMenu;
+    [SerializeField] GameObject pauseMenu, upgradeMenu, deathMenu, saveloadMenu;
 
     // PAUSE MENU METHODS
 
@@ -19,6 +19,9 @@ public class PauseController : MonoBehaviour {
                 // Check if the upgrade menu is active
                 if (upgradeMenu.activeSelf) {
                     upgradeMenu.SetActive(false);
+                    Resume();
+                } else if (saveloadMenu.activeSelf) {
+                    saveloadMenu.SetActive(false);
                     Resume();
                 } else {
                     // Otherwise toggle the pause menu

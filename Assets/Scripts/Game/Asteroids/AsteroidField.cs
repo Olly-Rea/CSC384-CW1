@@ -27,7 +27,7 @@ public class AsteroidField : MonoBehaviour {
         StartCoroutine(CheckDistanceFromPlayer("LargeAsteroid"));
         StartCoroutine(CheckDistanceFromPlayer("SmallAsteroid"));
         // Call on the function to increase the difficulty over time
-        StartCoroutine(increaseDifficulty());
+        StartCoroutine(IncreaseDifficulty());
     }
 
     private void Update() {
@@ -48,11 +48,11 @@ public class AsteroidField : MonoBehaviour {
         int distanceX, distanceY;
         // Ensure one of the axis is the bufferZone distance away from the player
         if (Random.value > 0.5f) {
-            distanceX = Random.Range(GameData.bufferZone, (int)(MAX_DISTANCE*0.8));
+            distanceX = Random.Range(GameController.bufferZone, (int)(MAX_DISTANCE*0.8));
             distanceY = Random.Range(0, (int)(MAX_DISTANCE*0.8));
         } else {
             distanceX = Random.Range(0, (int)(MAX_DISTANCE*0.8));
-            distanceY = Random.Range(GameData.bufferZone, (int)(MAX_DISTANCE*0.8));
+            distanceY = Random.Range(GameController.bufferZone, (int)(MAX_DISTANCE*0.8));
         }
 
         // Create the spawnPosition to use
@@ -63,7 +63,7 @@ public class AsteroidField : MonoBehaviour {
         // Spawn the asteroid
         GameObject asteroid = objectPooler.spawnFromPool("LargeAsteroid", spawnPosition, Quaternion.identity);
         // Set the asteroid speed
-        asteroid.GetComponent<Asteroid>().speed = GameData.asteroidSpeed;
+        asteroid.GetComponent<Asteroid>().speed = GameController.asteroidSpeed;
     }
 
     // Method to loop through all active asteroids and check distance from the player
@@ -76,7 +76,7 @@ public class AsteroidField : MonoBehaviour {
                 // Get the distance of the asteroid from the player
                 float distance = Vector2.Distance(player.transform.position, asteroid.transform.position);
                 // Check the if the distance is greater than the buffer zone AND the maximum distance
-                if (distance > GameData.bufferZone * 2 && distance > MAX_DISTANCE) {
+                if (distance > GameController.bufferZone * 2 && distance > MAX_DISTANCE) {
                     // Despawn the asteroid
                     asteroid.GetComponent<Asteroid>().Despawn();
                     // Decrement the number of active asteroids
@@ -88,11 +88,13 @@ public class AsteroidField : MonoBehaviour {
     }
 
     // Method to increase the speed and explosion force of asteroids over time
-    IEnumerator increaseDifficulty() {
-        // Wait 15 seconds between each increment
-        yield return new WaitForSeconds(30f);
-        GameData.asteroidSpeed += 1;
-        GameData.explosiveForce += 1;
+    IEnumerator IncreaseDifficulty() {
+        // Wait 1 minute between each increment
+        yield return new WaitForSeconds(60f);
+        GameController.asteroidSpeed += 2;
+        GameController.explosiveForce += 1;
+        // And repeat
+        StartCoroutine(IncreaseDifficulty());
     }
 
 }

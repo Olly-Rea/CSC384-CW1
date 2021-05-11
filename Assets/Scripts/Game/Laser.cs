@@ -59,7 +59,7 @@ public class Laser : MonoBehaviour, IPooledObject {
             // If the asteroid is not null
             if (asteroid != null) {
                 // Slightly randomise the damage
-                int localDamage = Random.Range((int)GameData.playerUpgrades[LaserDamage]-2, (int)GameData.playerUpgrades[LaserDamage]+2);
+                int localDamage = Random.Range((int)GameController.playerUpgrades[LaserDamage]-2, (int)GameController.playerUpgrades[LaserDamage]+2);
                 // Spawn a damage indicator
                 GameObject damageIndicator = objectPooler.spawnFromPool("DamageIndicator", transform.position, Quaternion.identity);
                 damageIndicator.GetComponent<DamageIndicator>().setDamage(localDamage);

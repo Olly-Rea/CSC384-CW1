@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 // Use the Upgradeable enum in upgradeController (without requiring namespace)
 using static Upgradeable;
@@ -30,24 +31,32 @@ public class UpgradeController : MonoBehaviour {
         // Initialise the cached score instance
         score = Score.Instance;
 
-        // Initialise the costs dictionary
+        // Initialise the dictionaries
         costs = new Dictionary<Upgradeable, int>();
-        costs[MaxSpeed] = costs[TurningSpeed] = costs[FireRate] = costs[LaserDamage] = GameData.baseCost;
-        // Initialise the levels dictionary
         levels = new Dictionary<Upgradeable, int>();
-        levels[MaxSpeed] = levels[TurningSpeed] = levels[FireRate] = levels[LaserDamage] = 0;
-        // Initialise the modifiers dictionary
         modifiers = new Dictionary<Upgradeable, float>();
-        modifiers[MaxSpeed] = modifiers[LaserDamage] = 1.2f;
-        modifiers[TurningSpeed] = 1.05f;
-        modifiers[FireRate] = 0.8f;
-
-        // Initialise the level bars dictionary
         levelBars = new Dictionary<Upgradeable, LevelBar>();
+
+        // Fill the level bars from the input SerializeField array
         levelBars[MaxSpeed] = levelBarsInput[0];
         levelBars[TurningSpeed] = levelBarsInput[1];
         levelBars[FireRate] = levelBarsInput[2];
         levelBars[LaserDamage] = levelBarsInput[3];
+
+        // Check if game vaues to be loaded from a save file
+        if (GameController.saveData != null) {
+            // Get the SaveData instance and load the saved data values
+            SaveData savedData = GameController.saveData;
+            LoadValues(savedData.costs, savedData.levels, savedData.modifiers);
+        } else {
+            // Otherwise fill all dictionaries with usual starting vals
+            costs[MaxSpeed] = costs[TurningSpeed] = costs[FireRate] = costs[LaserDamage] = GameController.baseCost;
+            levels[MaxSpeed] = levels[TurningSpeed] = levels[FireRate] = levels[LaserDamage] = 0;
+            modifiers[MaxSpeed] = modifiers[TurningSpeed] = 1.05f;
+            modifiers[FireRate] = 0.8f;
+            modifiers[LaserDamage] = 1.2f;
+        }
+
     }
 
     // Method to show the upgrade menu
@@ -70,12 +79,13 @@ public class UpgradeController : MonoBehaviour {
             // Increment the upgrade level
             levels[key]++;
             // Make the upgrade
-            GameData.playerUpgrades[key] *= modifiers[key];
+            GameController.playerUpgrades[key] *= modifiers[key];
 
             // Increment the score for the next level (+50%, rounded to nearest 10)
             costs[key] = (int) System.Math.Round(costs[key] / 10d) * 15;
             // Check thge prices again
             CheckPrices();
+
             // return "succesful purchase" (true)
             return true;
         // Otherwise return "no purchase" (false)
@@ -84,7 +94,12 @@ public class UpgradeController : MonoBehaviour {
         }
     }
 
-    // Method to check the player score against the current cost of 
+    // Method to return the current level of a levelBar (for "onload" of save file)
+    public int CheckLevel(Upgradeable upgrade) {
+        return levels[upgrade];
+    }
+
+    // Method to check the player score against the current cost of each upgrade
     public void CheckPrices() {
         // Loop through each level bar
         foreach (KeyValuePair<Upgradeable, int> upgrade in costs) {
@@ -103,12 +118,59 @@ public class UpgradeController : MonoBehaviour {
         }
     }
 
+    // Method to get all the costs as an array (for serialisable saving)
+    public int[] GetCostsAsArray() {
+        int[] tempArr = new int[4];
+        int i = 0;
+        foreach(Upgradeable upgrade in Enum.GetValues(typeof(Upgradeable))) {
+            tempArr[i++] = costs[upgrade];
+        }
+        return tempArr;
+    }
+    // Method to get all the levels as an array (for serialisable saving)
+    public int[] GetLevelsAsArray() {
+        int[] tempArr = new int[4];
+        int i = 0;
+        foreach(Upgradeable upgrade in Enum.GetValues(typeof(Upgradeable))) {  
+            tempArr[i++] = levels[upgrade];
+        }
+        return tempArr;
+    }
+    // Method to get all the modifiers as an array (for serialisable saving)
+    public float[] GetModifiersAsArray() {
+        float[] tempArr = new float[4];
+        int i = 0;
+        foreach(Upgradeable upgrade in Enum.GetValues(typeof(Upgradeable))) {  
+            tempArr[i++] = modifiers[upgrade];
+        }
+        return tempArr;
+    }
+
+    // Method to load values from SaveData to the upgrade
+    public void LoadValues(int[] _costs, int[] _levels, float[] _modifiers) {
+        // Load values into the costs dictionary
+        costs[MaxSpeed] = _costs[0];
+        costs[TurningSpeed] = _costs[1];
+        costs[FireRate] = _costs[2];
+        costs[LaserDamage] = _costs[3];
+        // Load values into the levels dictionary
+        levels[MaxSpeed] = _levels[0];
+        levels[TurningSpeed] = _levels[1];
+        levels[FireRate] = _levels[2];
+        levels[LaserDamage] = _levels[3];
+        // Load values into the modifiers dictionary
+        modifiers[MaxSpeed] = _modifiers[0];
+        modifiers[TurningSpeed] = _modifiers[1];
+        modifiers[FireRate] = _modifiers[2];
+        modifiers[LaserDamage] = _modifiers[3];
+    }
+
 }
 
 // Public enums for the player "ship" modifiers
 public enum Upgradeable {
-    LaserDamage,
-    FireRate,
     MaxSpeed,
-    TurningSpeed
+    TurningSpeed,
+    FireRate,
+    LaserDamage
 }

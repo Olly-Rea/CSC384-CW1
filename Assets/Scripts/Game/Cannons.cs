@@ -32,7 +32,7 @@ public class Cannons : MonoBehaviour {
             objectPooler.spawnFromPool("Laser", rightCannon.position, rightCannon.rotation);
         }
         // Wait for the fireRate limiter
-        yield return new WaitForSeconds(GameData.playerUpgrades[FireRate]);
+        yield return new WaitForSeconds(GameController.playerUpgrades[FireRate]);
         // Enable firing
         canFire = true;
     }

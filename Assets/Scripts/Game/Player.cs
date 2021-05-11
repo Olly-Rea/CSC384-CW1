@@ -54,7 +54,7 @@ public class Player : MonoBehaviour {
         // Check the healthBar existence (tutorial or not)
         if (healthBar != null) {
             // Create a "damage" value to hold the damage dealt by the collision
-            int collisionDamage = (int) System.Math.Round(collision.relativeVelocity.magnitude * GameData.damageFactor, 1);
+            int collisionDamage = (int) System.Math.Round(collision.relativeVelocity.magnitude * GameController.damageFactor, 1);
             // Check if the player still has a shield
             if (healthBar.GetShield() > 0) {
                 // if so, deal shield damage

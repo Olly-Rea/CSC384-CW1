@@ -22,7 +22,7 @@ public class LargeAsteroid : Asteroid {
         // Set a random angular velocity to the asteroid
         asteroidRigBod.angularVelocity = Random.Range(-10, 10);
         // Initialise the speed value
-        speed = GameData.asteroidSpeed;
+        speed = GameController.asteroidSpeed;
         // Give the asteroid a velocity
         asteroidRigBod.velocity = new Vector2(Random.Range(-speed, speed), Random.Range(-speed, speed));
     }
@@ -41,7 +41,7 @@ public class LargeAsteroid : Asteroid {
             // Split the asteroid into smaller pieces
             StartCoroutine(SpawnSmallAsteroids());
             // Increment the player score
-            Score.Instance.Increment(scoreIncrementer);
+            Score.Instance.Increment((int)System.Math.Round(scoreIncrementer * GameController.scoreModifier));
             // Reset the Asteroid health (for when it is respawned)
             health = 100;
         }

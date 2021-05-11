@@ -15,6 +15,11 @@ public class Score : MonoBehaviour {
     void Awake() {
         Instance = this;
         scoreText = scoreObj.GetComponent<TextMeshProUGUI>();
+        // Check if any saved data needs to be loaded
+        if(GameController.saveData != null) {
+            score = scoreDisplay = GameController.saveData.score;
+            scoreText.text = "SCORE: " + $"{(scoreDisplay):00000}";
+        }
     }
 
     // Method to increment the player score (and display to UI)

@@ -18,7 +18,7 @@ public class SmallAsteroid : Asteroid {
         // Set a random angular velocity to the asteroid
         asteroidRigBod.angularVelocity = Random.Range(-10, 10);
         // Initialise the speed value
-        speed = GameData.explosiveForce;
+        speed = GameController.explosiveForce;
         // Give the asteroid a velocity
         asteroidRigBod.velocity = new Vector2(Random.Range(-speed, speed), Random.Range(-speed, speed));
     }
@@ -30,7 +30,7 @@ public class SmallAsteroid : Asteroid {
             // Shake the player camera
             StartCoroutine(cameraShake.shakeCamera(0.04f, 0.04f));
             // Increment the player score
-            Score.Instance.Increment(scoreIncrementer);
+            Score.Instance.Increment((int)System.Math.Round(scoreIncrementer * GameController.scoreModifier));
             // Despawn this asteroid
             Despawn();
             // Reset the Asteroid health (for when it is respawned)
