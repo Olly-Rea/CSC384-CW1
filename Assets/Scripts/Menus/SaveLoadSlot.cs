@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
@@ -60,9 +58,6 @@ public class SaveLoadSlot : MonoBehaviour {
                 GetComponent<CanvasGroup>().alpha = 0.7f;
             }
         }
-
-        
-
     }
 
     // Method to check a save slot

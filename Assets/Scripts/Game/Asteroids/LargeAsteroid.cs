@@ -29,9 +29,6 @@ public class LargeAsteroid : Asteroid {
 
     // Method to have the Asteroid take damage
     override public void Damage(int damage) {
-
-        // Debug.Log(damage + " " + health);
-
         // Check if the laser has destroyed the Asteroid
         if ((health -= damage) <= 0) {
             // Shake the player camera

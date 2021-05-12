@@ -5,6 +5,10 @@ public class MainMenu : MonoBehaviour {
     
     // MAIN MENU METHODS
 
+    void Start() {
+        PauseController.Resume();
+    }
+
     // Method to load the GameScene
     public void Play(int difficulty) {
 
@@ -18,7 +22,7 @@ public class MainMenu : MonoBehaviour {
             GameController.setDifficulty(
                 100, // baseCost
                 14, // MaxSpeed
-                0.4f, // TurningSpeed
+                2.8f, // TurningSpeed
                 0.5f, // FireRate
                 18, // LaserDamage
                 0.2, // Asteroid damageFactor
@@ -31,7 +35,7 @@ public class MainMenu : MonoBehaviour {
             GameController.setDifficulty(
                 150, // baseCost
                 14, // MaxSpeed
-                0.4f, // TurningSpeed
+                2.8f, // TurningSpeed
                 0.5f, // FireRate
                 16, // LaserDamage
                 0.4, // Asteroid damageFactor
@@ -44,7 +48,7 @@ public class MainMenu : MonoBehaviour {
             GameController.setDifficulty(
                 200, // baseCost
                 14, // MaxSpeed
-                0.36f, // TurningSpeed
+                2.8f, // TurningSpeed
                 0.46f, // FireRate
                 14, // LaserDamage
                 0.6, // Asteroid damageFactor
@@ -68,7 +72,7 @@ public class MainMenu : MonoBehaviour {
         GameController.setDifficulty( 
             0, // baseCost
             14, // MaxSpeed
-            0.6f, // TurningSpeed
+            3.2f, // TurningSpeed
             0.4f, // FireRate
             28, // LaserDamage
             0, // Asteroid damageFactor

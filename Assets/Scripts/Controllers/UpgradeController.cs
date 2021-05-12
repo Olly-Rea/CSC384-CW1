@@ -52,7 +52,8 @@ public class UpgradeController : MonoBehaviour {
             // Otherwise fill all dictionaries with usual starting vals
             costs[MaxSpeed] = costs[TurningSpeed] = costs[FireRate] = costs[LaserDamage] = GameController.baseCost;
             levels[MaxSpeed] = levels[TurningSpeed] = levels[FireRate] = levels[LaserDamage] = 0;
-            modifiers[MaxSpeed] = modifiers[TurningSpeed] = 1.05f;
+            modifiers[MaxSpeed] = 1.05f;
+            modifiers[TurningSpeed] = 1.1f;
             modifiers[FireRate] = 0.8f;
             modifiers[LaserDamage] = 1.2f;
         }

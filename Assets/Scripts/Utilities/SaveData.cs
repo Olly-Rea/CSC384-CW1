@@ -1,8 +1,5 @@
 using System.Collections.Generic;
 
-// using the Difficulty enums
-using static Difficulty;
-
 // Class to store all game data
 [System.Serializable]
 public class SaveData {

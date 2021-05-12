@@ -36,7 +36,7 @@ public abstract class Asteroid : MonoBehaviour, IPooledObject {
     }
 
     // Method to perform the visual stuff of "destroying" an asteroid
-    private IEnumerator DestroyAsteroid() {
+    protected IEnumerator DestroyAsteroid() {
         // Get the asteroid component of the gameobject (if null)
         if (thisAsteroid == null) thisAsteroid = transform.transform.GetChild(0).gameObject;
         // Play the "on destroy" effect

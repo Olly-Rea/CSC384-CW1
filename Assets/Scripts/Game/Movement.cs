@@ -19,7 +19,7 @@ public class Movement : MonoBehaviour {
     private Vector2 velocity;
 
     // Speed modifier (Constant)
-    private const double SPEED_FACTOR = 0.08;
+    private const double SPEED_FACTOR = 0.6;
 
     // Method called when class initialized
     void Awake() {
@@ -59,7 +59,7 @@ public class Movement : MonoBehaviour {
         }
     }
 
-    private void Update() {
+    private void FixedUpdate() {
         // Only move if playerMovement is allowed
         if (canMove && !PauseController.GamePaused) Move(currentInput);
     }
